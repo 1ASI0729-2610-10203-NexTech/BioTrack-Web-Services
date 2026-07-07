@@ -16,11 +16,11 @@ namespace nextech.biotrack.platform.CorporateManagement.Interfaces.Rest;
 [SwaggerTag("Available Company Collaborators endpoints")]
 public class CompanyCollaboratorsController(ICompanyCommandService companyCommandService) : ControllerBase
 {
-    /// <summary>Upload collaborators for a company (TS05)</summary>
-    [HttpPost("{companyId:int}/collaborators/upload")]
+    /// <summary>Replace collaborators for a company (TS05)</summary>
+    [HttpPut("{companyId:int}/collaborators")]
     [Consumes(MediaTypeNames.Application.Json)]
-    [SwaggerOperation(Summary = "Upload company collaborators", OperationId = "UploadCompanyCollaborators")]
-    [SwaggerResponse(StatusCodes.Status202Accepted, "Collaborators upload accepted")]
+    [SwaggerOperation(Summary = "Replace company collaborators", OperationId = "ReplaceCompanyCollaborators")]
+    [SwaggerResponse(StatusCodes.Status202Accepted, "Collaborators replaced successfully")]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid collaborator data")]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "Unauthorized")]
     [SwaggerResponse(StatusCodes.Status403Forbidden, "Access denied to this company")]
