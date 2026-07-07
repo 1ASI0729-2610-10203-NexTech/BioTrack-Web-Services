@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: nextech-biotrack-platform
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    port: 8080
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: TokenSettings__Secret
+        sync: false

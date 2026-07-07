@@ -192,14 +192,10 @@ using (var scope = app.Services.CreateScope())
 
 app.UseGlobalExceptionHandler();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors("AllowAllPolicy");
-app.UseHttpsRedirection();
 app.UseRequestAuthorization();
 app.UseAuthorization();
 app.MapControllers();
