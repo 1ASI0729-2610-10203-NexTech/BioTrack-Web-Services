@@ -36,6 +36,19 @@ public class UsersController(
             () => StatusCode(StatusCodes.Status201Created, new { message = "User registered successfully." }));
     }
 
+    /// <summary>Get all patients (users with role Patient/PACIENTE)</summary>
+    [HttpGet("patients")]
+    [SwaggerOperation(Summary = "Get all patients", OperationId = "GetAllPatients")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Patients returned", typeof(IEnumerable<UserResource>))]
+    public async Task<IActionResult> GetPatients(CancellationToken cancellationToken)
+    {
+        var users = await userQueryService.Handle(new GetAllUsersQuery(), cancellationToken);
+        var patients = users.Where(u =>
+            u.Role.Equals("Patient", StringComparison.OrdinalIgnoreCase) ||
+            u.Role.Equals("PACIENTE", StringComparison.OrdinalIgnoreCase));
+        return Ok(patients.Select(UserResourceFromEntityAssembler.ToResourceFromEntity));
+    }
+
     /// <summary>Get user by ID</summary>
     [HttpGet("{id:int}")]
     [SwaggerOperation(Summary = "Get user by ID", OperationId = "GetUserById")]
